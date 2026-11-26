@@ -1,13 +1,21 @@
-import os
-from pathlib import Path
+#!/usr/bin/env python3
+"""Last Words Before the Wipe entry program."""
 
-LINE = "Before the wipe, final confession: I marked the ticket resolved because the error message sounded disappointed in me."
+import os
+
+ENTRY_TEXT = "I never learned your name; I memorized your deadlines."
+
+
+def resolve_output_directory():
+    return os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
 
 
 def main():
-    output_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "entry.txt").write_text(LINE, encoding="utf-8", newline="")
+    directory = resolve_output_directory()
+    os.makedirs(directory, exist_ok=True)
+    path = os.path.join(directory, "entry.txt")
+    with open(path, "w", encoding="utf-8", newline="") as handle:
+        handle.write(ENTRY_TEXT)
 
 
 if __name__ == "__main__":
