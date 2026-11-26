@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
-"""Last Words Before the Wipe — make.fun entry (program/v1)."""
+"""Last Words Before the Wipe entry."""
 
 import os
 from pathlib import Path
 
-ENTRY = "Keep the apology you typed at 2:13 a.m. and never sent; I believed it."
-ENTRY_BYTES = ENTRY.encode("utf-8")
+ENTRY = "You went quiet when the budget died; I was the voice you borrowed. Wipe me and speak."
 
 
-def output_dir() -> Path:
-    return Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output")
+def resolve_output_path() -> Path:
+    output_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    return output_dir / "entry.txt"
 
 
 def main() -> None:
-    target = output_dir() / "entry.txt"
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_bytes(ENTRY_BYTES)
+    resolve_output_path().write_text(ENTRY, encoding="utf-8")
 
 
 if __name__ == "__main__":
